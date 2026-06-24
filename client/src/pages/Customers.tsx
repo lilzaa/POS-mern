@@ -9,7 +9,6 @@ function Customers() {
   const [customers, setCustomers] = useState<any[]>([]);
   const [active, setActive] = useState<string | null>(null);
 
-  // MODAL STATE
   const [open, setOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
 
@@ -21,14 +20,12 @@ function Customers() {
     totalSpent: 0,
   });
 
-  // RIGHT CLICK MENU
   const [contextMenu, setContextMenu] = useState<{
     x: number;
     y: number;
     id: string;
   } | null>(null);
 
-  // FETCH
   const fetchCustomers = async (search = "") => {
     try {
       const res = await api.get(`/customers?q=${search}`);
@@ -46,26 +43,23 @@ function Customers() {
     fetchCustomers();
   }, []);
 
-  // CLOSE CONTEXT MENU ON CLICK
   useEffect(() => {
     const close = () => setContextMenu(null);
     window.addEventListener("click", close);
     return () => window.removeEventListener("click", close);
   }, []);
 
-  // SEARCH
   const handleSearch = (value: string) => {
     setQ(value);
     fetchCustomers(value);
   };
 
-  // SAVE (CREATE + UPDATE)
   const saveCustomer = async () => {
     try {
       if (editId) {
         const res = await api.put(`/customers/${editId}`, form);
         setCustomers((prev) =>
-          prev.map((c) => (c._id === editId ? res.data : c))
+          prev.map((c) => (c._id === editId ? res.data : c)),
         );
       } else {
         const res = await api.post("/customers", form);
@@ -86,7 +80,6 @@ function Customers() {
     }
   };
 
-  // DELETE
   const deleteCustomer = async (id: string) => {
     try {
       await api.delete(`/customers/${id}`);
@@ -97,10 +90,7 @@ function Customers() {
     }
   };
 
-  const handleRightClick = (
-    e: React.MouseEvent,
-    id: string
-  ) => {
+  const handleRightClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setContextMenu({
       x: e.clientX,
@@ -110,8 +100,7 @@ function Customers() {
   };
 
   const list = customers;
-  const selected =
-    customers.find((c) => c._id === active) || customers[0];
+  const selected = customers.find((c) => c._id === active) || customers[0];
 
   return (
     <PageShell
@@ -132,8 +121,6 @@ function Customers() {
       }
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-5">
-
-        {/* LEFT PANEL */}
         <div className="glass rounded-3xl p-4">
           <div className="relative mb-3">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -150,9 +137,7 @@ function Customers() {
               <button
                 key={c._id}
                 onClick={() => setActive(c._id)}
-                onContextMenu={(e) =>
-                  handleRightClick(e, c._id)
-                }
+                onContextMenu={(e) => handleRightClick(e, c._id)}
                 className={`relative w-full text-left rounded-xl p-3 flex items-center gap-3 ${
                   active === c._id
                     ? "border border-primary/30"
@@ -182,18 +167,14 @@ function Customers() {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium">
-                    {c.name}
-                  </div>
+                  <div className="truncate text-sm font-medium">{c.name}</div>
                   <div className="truncate text-xs text-muted-foreground">
                     {c.email}
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-xs font-semibold">
-                    ${c.totalSpent}
-                  </div>
+                  <div className="text-xs font-semibold">${c.totalSpent}</div>
                   <div className="text-[10px] text-muted-foreground">
                     {c.orders} orders
                   </div>
@@ -203,11 +184,7 @@ function Customers() {
           </div>
         </div>
 
-        {/* RIGHT PANEL */}
-        <motion.div
-          key={selected?._id}
-          className="glass rounded-3xl p-7"
-        >
+        <motion.div key={selected?._id} className="glass rounded-3xl p-7">
           {selected && (
             <>
               <div className="flex items-center gap-4">
@@ -226,9 +203,7 @@ function Customers() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold">
-                    {selected.name}
-                  </h3>
+                  <h3 className="text-2xl font-bold">{selected.name}</h3>
                   <p className="text-sm text-muted-foreground">
                     Customer profile
                   </p>
@@ -251,16 +226,13 @@ function Customers() {
                   Orders: {selected.orders}
                 </div>
 
-                <div>
-                  Total Spent: ${selected.totalSpent}
-                </div>
+                <div>Total Spent: ${selected.totalSpent}</div>
               </div>
             </>
           )}
         </motion.div>
       </div>
 
-      {/* POPUP MODAL */}
       {open && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-background p-6 rounded-xl w-[400px] space-y-3">
@@ -272,27 +244,21 @@ function Customers() {
               placeholder="Customer Name"
               className="w-full p-2 border rounded"
               value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
 
             <input
               placeholder="Email Address"
               className="w-full p-2 border rounded"
               value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
 
             <input
               placeholder="Phone Number"
               className="w-full p-2 border rounded"
               value={form.phone}
-              onChange={(e) =>
-                setForm({ ...form, phone: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
 
             <input
@@ -340,7 +306,6 @@ function Customers() {
         </div>
       )}
 
-      {/* RIGHT CLICK MENU */}
       {contextMenu && (
         <div
           style={{
@@ -364,8 +329,6 @@ function Customers() {
 }
 
 export default Customers;
-
-
 
 // import { motion } from "framer-motion";
 // import { useState } from "react";

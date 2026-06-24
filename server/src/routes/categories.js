@@ -6,8 +6,6 @@ const r = Router();
 
 r.use(requireAuth);
 
-// GET ALL
-
 r.get("/", async (req, res) => {
   try {
     const categories = await Category.find().sort("-createdAt");
@@ -20,8 +18,6 @@ r.get("/", async (req, res) => {
   }
 });
 
-// CREATE
-
 r.post("/", async (req, res) => {
   try {
     const category = await Category.create(req.body);
@@ -33,8 +29,6 @@ r.post("/", async (req, res) => {
     });
   }
 });
-
-// UPDATE
 
 r.put("/:id", async (req, res) => {
   try {
@@ -49,8 +43,6 @@ r.put("/:id", async (req, res) => {
     });
   }
 });
-
-// DELETE
 
 r.delete("/:id", async (req, res) => {
   try {

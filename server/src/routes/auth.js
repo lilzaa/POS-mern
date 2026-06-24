@@ -4,7 +4,6 @@ import { signToken, requireAuth } from "../middleware/auth.js";
 
 const r = Router();
 
-/* SIGNUP */
 r.post("/signup", async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -38,7 +37,7 @@ r.post("/signup", async (req, res, next) => {
   }
 });
 
-/* LOGIN */
+
 r.post("/login", async (req, res, next) => {
   try {
     console.log("LOGIN BODY:", req.body);
@@ -71,7 +70,6 @@ r.post("/login", async (req, res, next) => {
   }
 });
 
-/* ME */
 r.get("/me", requireAuth, (req, res) => {
   res.json({ user: req.user });
 });

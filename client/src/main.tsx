@@ -49,10 +49,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-            {/* PUBLIC ROUTE */}
             <Route path="/login" element={<Login />} />
 
-            {/* PROTECTED ROUTES */}
             <Route
               path="/dashboard"
               element={shell(

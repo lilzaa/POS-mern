@@ -25,38 +25,37 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    let res;
+    try {
+      let res;
 
-    if (mode === "login") {
-      res = await api.post("/auth/login", {
-        email,
-        password,
+      if (mode === "login") {
+        res = await api.post("/auth/login", {
+          email,
+          password,
+        });
+      } else {
+        res = await api.post("/auth/signup", {
+          name,
+          email,
+          password,
+        });
+      }
+
+      login({
+        user: res.data.user,
+        token: res.data.token,
       });
-    } else {
-      res = await api.post("/auth/signup", {
-        name,
-        email,
-        password,
-      });
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Request failed");
     }
-
-    login({
-      user: res.data.user,
-      token: res.data.token,
-    });
-
-    navigate("/dashboard");
-  } catch (err: any) {
-    alert(err.response?.data?.message || "Request failed");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      {/* Left visual */}
       <div
         className="relative hidden lg:flex flex-col justify-between p-12 overflow-hidden"
         style={{

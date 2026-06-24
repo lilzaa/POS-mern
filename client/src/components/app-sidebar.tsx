@@ -29,12 +29,6 @@ export function AppSidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // const logout = () => {
-  //   localStorage.removeItem("aurum_token");
-  //   localStorage.removeItem("aurum_user");
-  //   navigate("/login");
-  // };
-
   return (
     <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar/80 backdrop-blur-xl">
       <div className="px-6 pt-7 pb-8">
@@ -106,12 +100,6 @@ export function AppSidebar() {
         >
           <LogOut className="h-3.5 w-3.5" /> Sign out
         </button>
-        {/* <Link
-          to="/login"
-          className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-        >
-          <LogOut className="h-3.5 w-3.5" /> Sign out
-        </Link> */}
       </div>
     </aside>
   );

@@ -81,7 +81,6 @@ function Products() {
 
   const emojis = ["💻", "📱", "👟", "👕", "☕", "📚", "🎧", "⚽", "🍔", "🧴"];
 
-  // ---------------- FETCH PRODUCTS ----------------
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -97,7 +96,6 @@ function Products() {
     }
   };
 
-  // ---------------- FILTER ----------------
   const filtered = useMemo(() => {
     return products.filter((p) => {
       const matchCategory = cat === "All" || p.category === cat;
@@ -110,7 +108,6 @@ function Products() {
     });
   }, [products, query, cat]);
 
-  // ---------------- LOADING UI ----------------
   if (loading) {
     return (
       <PageShell title="Products" subtitle="Loading products...">
@@ -134,7 +131,6 @@ function Products() {
           </button>
         }
       >
-        {/* ---------------- SEARCH + FILTER ---------------- */}
         <div className="glass rounded-2xl p-4 flex flex-col md:flex-row gap-3 mb-5">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -169,7 +165,6 @@ function Products() {
           </div>
         </div>
 
-        {/* ---------------- TABLE ---------------- */}
         <div className="glass rounded-3xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -193,7 +188,6 @@ function Products() {
                     transition={{ delay: i * 0.02 }}
                     className="border-t border-border hover:bg-secondary/30 transition"
                   >
-                    {/* Product */}
                     <td className="px-6 py-3.5">
                       <div className="flex items-center gap-3">
                         <div className="grid h-10 w-10 place-items-center rounded-lg bg-secondary/60 text-xl">
@@ -203,24 +197,20 @@ function Products() {
                       </div>
                     </td>
 
-                    {/* SKU */}
                     <td className="px-6 py-3.5 font-mono text-xs text-muted-foreground">
                       {p.sku}
                     </td>
 
-                    {/* Category */}
                     <td className="px-6 py-3.5">
                       <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] text-muted-foreground border border-border">
                         {p.category}
                       </span>
                     </td>
 
-                    {/* Price */}
                     <td className="px-6 py-3.5 text-right font-semibold">
                       ${Number(p.price).toFixed(2)}
                     </td>
 
-                    {/* Stock */}
                     <td className="px-6 py-3.5 text-right">
                       <span
                         className={`text-xs font-semibold ${
@@ -235,7 +225,6 @@ function Products() {
                       </span>
                     </td>
 
-                    {/* Actions */}
                     <td className="px-6 py-3.5">
                       <div className="flex justify-end gap-1">
                         <button
@@ -361,13 +350,6 @@ function Products() {
               >
                 {editId ? "Update" : "Save"}
               </button>
-
-              {/* <button
-                onClick={createProduct}
-                className="px-4 py-2 bg-green-500 text-white rounded"
-              >
-                Save
-              </button> */}
             </div>
           </div>
         </div>

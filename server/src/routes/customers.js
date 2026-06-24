@@ -5,7 +5,7 @@ import { requireAuth } from "../middleware/auth.js";
 const r = Router();
 r.use(requireAuth);
 
-// GET + SEARCH
+
 r.get("/", async (req, res, next) => {
   try {
     const { q } = req.query;
@@ -26,7 +26,6 @@ r.get("/", async (req, res, next) => {
   }
 });
 
-// CREATE
 r.post("/", async (req, res, next) => {
   try {
     const data = await Customer.create(req.body);
@@ -36,7 +35,6 @@ r.post("/", async (req, res, next) => {
   }
 });
 
-// UPDATE
 r.put("/:id", async (req, res, next) => {
   try {
     const data = await Customer.findByIdAndUpdate(
@@ -50,7 +48,6 @@ r.put("/:id", async (req, res, next) => {
   }
 });
 
-// DELETE
 r.delete("/:id", async (req, res, next) => {
   try {
     await Customer.findByIdAndDelete(req.params.id);

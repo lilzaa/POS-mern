@@ -57,7 +57,6 @@ r.post("/", async (req, res, next) => {
       cashier: req.user._id,
     });
 
-    // decrement stock
     await Promise.all(
       items
         .filter((i) => i.product)
@@ -66,7 +65,6 @@ r.post("/", async (req, res, next) => {
         )
     );
 
-    // bump customer stats
     if (customer && customer !== "Walk-in") {
       await Customer.findOneAndUpdate(
         { name: customer },
